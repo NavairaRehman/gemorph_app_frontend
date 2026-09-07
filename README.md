@@ -1,111 +1,71 @@
-# GeMorph Flutter Frontend
+# Gemorph DNA to Face
 
-This repository contains the Flutter client. The FastAPI service is maintained and deployed separately in `gemorph_app_backend`.
+Live application: [frontend-gemorph-43343.web.app](https://frontend-gemorph-43343.web.app/)
 
-> ⚠️ Intended for **law enforcement and forensic agencies** in sensitive cases such as murder, rape, and unidentified remains.
+Use the live link to test the deployed frontend. The backend and machine-learning model are hosted separately in the cloud because of their compute requirements and intellectual-property constraints. This repository contains the Flutter frontend code and does not include the backend or model files.
 
----
+GeMorph was originally designed for on-premise deployment in forensic environments. DNA data is highly sensitive and should not be uploaded to a public repository or exposed through a public demonstration system. Production use should run within an appropriately controlled environment, with approved access controls and data-handling procedures.
 
-## 🧠 Features
+## What This Repository Contains
 
-- 🔬 **DNA-to-Face Prediction**  
-  Generates a realistic 3D facial mesh using a Conditional Autoencoder trained on genetic features.
+- Flutter user interface for DNA upload, processing status, reports, and generated face results.
+- Static assets and platform project files for Flutter.
 
-- 🎨 **Pigmentation Trait Prediction**  
-  Predicts **eye**, **hair**, and **skin** color using XGBoost models trained on large-scale genomic data.
+## Requirements
 
-- 📄 **Automatic Report Generation**  
-  Outputs a detailed **PDF report** containing predicted traits and face visuals.
+- Flutter SDK with Dart 3 or later.
+- Access to a running GeMorph FastAPI backend.
+- A supported Flutter target such as Chrome, Windows, macOS, or Linux.
 
-- 🛠 **Fully Offline Execution**  
-  No internet connection or external API calls. All models and logic run locally on-device.
+## Run Locally
 
-- 🖥 **Cross-Platform Frontend**  
-  Built with Flutter — simple UI for uploading DNA, tracking progress, and downloading reports.
+1. Open a terminal in this repository:
 
----
+   ```bash
+   cd /path/to/gemorph_app_frontend
+   ```
 
-## Project Structure
+2. Install Flutter dependencies:
 
-```
+   ```bash
+   flutter pub get
+   ```
 
-├── lib/                      # Flutter UI (Upload, Progress, Report screens)
-├── assets/                   # PDF templates, icons, etc.
-└── ...
+3. Start the application with the backend URL. For the deployed backend:
 
-```
+   ```bash
+   flutter run -d chrome \
+     --dart-define=API_BASE_URL=https://fastapi-backend-226835992406.us-central1.run.app
+   ```
 
----
+   For a local backend, replace the URL with `http://localhost:8000`.
 
-## 🚀 Quick Start (Windows)
+4. Select a DNA input file in the application and wait for processing to finish.
 
-### Prerequisites
-- [Flutter SDK](https://docs.flutter.dev/get-started/install)
-- A reachable deployment of the FastAPI backend
+The API endpoint is defined in `lib/config/app_config.dart`. The `API_BASE_URL` Dart define takes precedence over its default value.
 
----
-
-### 💻 Run the Flutter App (Windows)
-
-```bash
-flutter pub get
-flutter run -d windows --dart-define=API_BASE_URL=http://localhost:8000
-```
-
-For a deployed backend, replace the value with its HTTPS URL at build time, for example:
+## Build For Web
 
 ```bash
-flutter build web --dart-define=API_BASE_URL=https://api.example.com
+flutter build web --release \
+  --dart-define=API_BASE_URL=https://fastapi-backend-226835992406.us-central1.run.app
 ```
 
----
+The output is written to `build/web`.
 
-## 🧬 Model Details
+## Local Sample Inputs
 
-### 🎭 Conditional Autoencoder (Face Prediction)
+Sample genotype files can be kept locally in:
 
-* Inputs:
+```text
+/Users/navairarehman/Desktop/Input sample csvs
+```
 
-  * Mean cluster face (3D vertices)
-  * DNA embedding (e.g., 1326 SNP features)
-* Outputs:
+The provided input CSVs in that folder are available for testing the application. Select one when running the frontend locally or use one through the live application. These files are intentionally not included in this public frontend repository because they contain genomic data and identifiable sample information. Use them only in an authorized local or private testing environment. The backend accepts CSV, VCF, and TXT inputs with `# rsid` and `genotype` columns.
 
-  * 3D mesh of predicted face (3000 vertices)
-
-### 🎨 XGBoost Classifiers (Trait Prediction)
-
-* Inputs:
-
-  * DNA feature vector (preprocessed)
-* Outputs:
-
-  * Trait class + confidence (for eye/hair/skin)
-
----
-
-## 🧪 Tests
-
-Run Flutter tests:
+## Tests
 
 ```bash
 flutter test
+flutter analyze
 ```
-
----
-
-## 📜 License
-
-This repository is part of a research and development initiative. For licensing and forensic deployment, please contact the [GeMorph team](mailto:gemorphdev@gmail.com).
-
----
-
-## 👥 Contributors
-
-* Ahsan Ullah Tanweer – Founder & Developer
-* Navaira Rehman - Founder & Developer
-
----
-
-## 🌐 Learn More
-
-> Visit [GeMorph.com](https://gemorph.com) or follow our updates on LinkedIn, GitHub, and Instagram.
