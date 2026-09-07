@@ -58,10 +58,10 @@ The output is written to `build/web`.
 Sample genotype files can be kept locally in:
 
 ```text
-/Users/navairarehman/Desktop/Input sample csvs
+Input sample csvs/
 ```
 
-The provided input CSVs in that folder are available for testing the application. Select one when running the frontend locally or use one through the live application. These files are intentionally not included in this public frontend repository because they contain genomic data and identifiable sample information. Use them only in an authorized local or private testing environment. The backend accepts CSV, VCF, and TXT inputs with `# rsid` and `genotype` columns.
+The provided input CSVs in that folder are available for testing the application. Select one when running the frontend locally or use one through the live application. Because these files contain genomic data and identifiable sample information, use them only in an authorized testing environment. The backend accepts CSV, VCF, and TXT inputs with `# rsid` and `genotype` columns.
 
 ## Tests
 

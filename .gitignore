@@ -6,7 +6,9 @@
 build/
 coverage/
 *.log
+firebase-debug.log
 .DS_Store
+.firebase/
 
 # Generated platform files
 **/ephemeral/
